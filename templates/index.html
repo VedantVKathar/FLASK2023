@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <form id="url-form">
+        <label for="long-url">Enter a long URL:</label>
+        <input type="text" id="long-url" name="long_url" required>
+        <button type="submit">Shorten</button>
+    </form>
+    <p>Short URL: <a id="short-url" href=""></a></p>
+    <script>
+        $(document).ready(function() {
+            $("#url-form").submit(function(event) {
+                event.preventDefault();
+                $.post('/shorten', { long_url: $('#long-url').val() }, function(data) {
+                    $('#short-url').attr('href', window.location.href + data);
+                    $('#short-url').text(window.location.href + data);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
